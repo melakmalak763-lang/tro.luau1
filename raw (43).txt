@@ -1,3 +1,163 @@
+-- ============================================================
+-- [ HttpSpy Flooder v4 - ULTIMATE ]
+-- إغراق سريع ولا نهائي - روابط ضخمة ومتنوعة
+-- ⚠️ شغّل HttpSpy أولاً ثم شغّل هذا السكربت
+-- ============================================================
+
+local fakeUrls = {
+    -- ================= DISCORD WEBHOOKS =================
+    "https://discord.com/api/webhooks/123456789012345678/FAKE_TOKEN_ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "https://discord.com/api/webhooks/987654321098765432/ANOTHER_FAKE_TOKEN_1234567890abcdef",
+    "https://discordapp.com/api/webhooks/112233445566778899/LeAkEd_ToKeN_112233445566778899",
+    "https://discord.com/api/webhooks/998877665544332211/Admin_Logs_Secret_Key",
+    "https://discord.com/api/webhooks/000000000000000000/ROOT_ACCESS_TOKEN_000000",
+    "https://discord.com/api/webhooks/111111111111111111/System_Breach_Detected",
+    "https://discord.com/api/webhooks/555555555555555555/Owner_Private_Webhook",
+    "https://discord.com/api/webhooks/777777777777777777/AutoMod_Alert_System",
+    "https://discord.com/api/webhooks/888888888888888888/Join_Leave_Logs_Token",
+    "https://discord.com/api/webhooks/999999999999999999/Error_Reporting_Endpoint",
+
+    -- ================= GITHUB & GISTS =================
+    "https://raw.githubusercontent.com/LuaSec/roblox-config/main/token.txt",
+    "https://github.com/LuaSec/roblox-config/blob/main/webhook.json",
+    "https://gist.githubusercontent.com/NullByte777/a1b2c3d4e5/raw/webhook.lua",
+    "https://api.github.com/repos/ExploitHub/loader/contents/auth.json",
+    "https://github.com/RobloxDev2024/scripts/releases/download/v2.1/webhook.cfg",
+    "https://raw.githubusercontent.com/HubMasterX/roblox-auth/main/keys.json",
+    "https://gist.github.com/DevNull1337/9f8e7d6c5b",
+    "https://github.com/APILeaks/discord-tokens/blob/main/tokens.txt",
+    "https://raw.githubusercontent.com/NexusHub/core/main/secrets.env",
+    "https://api.github.com/repos/SecretStore/config/contents/keys.yml",
+    "https://github.com/0xScripts/bypass/raw/main/webhook.url",
+    "https://raw.githubusercontent.com/HiddenKeys/db/main/tokens.json",
+    "https://gist.githubusercontent.com/AnonUser42/deadbeefcafe/raw/leak.txt",
+    "https://github.com/AdminPanelX/v2-config/blob/master/webhook.json",
+    "https://raw.githubusercontent.com/KeyVaultX/main/auth.lua",
+    "https://github.com/DeltaExec/native/raw/main/keys.json",
+    "https://raw.githubusercontent.com/SynapseX/api/main/webhook.txt",
+    "https://github.com/KrnlAPI/v2/blob/main/secrets.env",
+    "https://api.github.com/repos/ScriptWare/loadstring/contents/auth.lua",
+    "https://gist.githubusercontent.com/HackerMan/12345abcde/raw/token.txt",
+
+    -- ================= PASTEFY =================
+    "https://pastefy.app/Xy7Kp2Qz",
+    "https://pastefy.app/raw/aB3dE5gH",
+    "https://pastefy.app/api/v1/paste/kL9mN2pQ",
+    "https://pastefy.app/Zx8Cv4Bn",
+    "https://pastefy.app/raw/Mj6Kl3Pq",
+    "https://pastefy.app/Ty5Wq8Rs",
+    "https://pastefy.app/api/v1/paste/Hn3Vb7Fg",
+    "https://pastefy.app/Qw9Er4Ty",
+    "https://pastefy.app/raw/Pl2Kj8Hm",
+    "https://pastefy.app/Gf6Ds3Aa",
+    "https://pastefy.app/api/v1/paste/Vc1Bn5Mk",
+    "https://pastefy.app/Lk7Pz9Xw",
+    "https://pastefy.app/raw/Rt4Yu6Io",
+    "https://pastefy.app/Ed2Fg8Hj",
+    "https://pastefy.app/api/v1/paste/Sd5Fh7Jk",
+
+    -- ================= PASTEBIN =================
+    "https://pastebin.com/raw/Xy7Kp2Qz",
+    "https://pastebin.com/raw/aB3dE5gH",
+    "https://pastebin.com/raw/kL9mN2pQ",
+    "https://pastebin.com/raw/Zx8Cv4Bn",
+    "https://pastebin.com/raw/Mj6Kl3Pq",
+    "https://pastebin.com/raw/Ty5Wq8Rs",
+    "https://pastebin.com/raw/Hn3Vb7Fg",
+    "https://pastebin.com/raw/Qw9Er4Ty",
+    "https://pastebin.com/raw/Pl2Kj8Hm",
+    "https://pastebin.com/raw/Gf6Ds3Aa",
+
+    -- ================= TRELLO / NOTION =================
+    "https://api.trello.com/1/cards/1234567890abcdef/attachments",
+    "https://api.trello.com/1/members/me/tokens?key=FAKE_KEY&token=FAKE_TOKEN",
+    "https://notion.so/api/v3/loadCachedPageChunk?secret=ABC123",
+    "https://api.notion.com/v1/databases/1234567890/query",
+
+    -- ================= MISC / API =================
+    "https://api.example.invalid/v1/secret-endpoint",
+    "https://webhook.site.invalid/trap-12345",
+    "https://hooks.slack.invalid/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX",
+    "https://api.telegram.org/bot123456789:FAKE_TOKEN/sendMessage",
+    "https://api.imgur.invalid/3/image",
+    "https://api.roblox.invalid/v1/authentication",
+    "https://auth.roblox.invalid/v1/login",
+    "https://api.discord.invalid/v9/users/@me",
+    "https://api.github.invalid/user/repos",
+}
+
+-- دالة لتوليد نهاية عشوائية فريدة لكل رابط (لضمان لا نهائية الروابط)
+local function getRandomString()
+    local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    local res = ""
+    for i = 1, 16 do
+        local idx = math.random(1, #chars)
+        res = res .. string.sub(chars, idx, idx)
+    end
+    return res
+end
+
+-- دالة اختيار رابط وتغييره قليلاً
+local function getFake()
+    local base = fakeUrls[math.random(1, #fakeUrls)]
+    -- إضافة باراميتر عشوائي لجعل كل رابط فريداً
+    if string.find(base, "?") then
+        return base .. "&" .. getRandomString() .. "=" .. math.random(1, 999999)
+    else
+        return base .. "?" .. getRandomString() .. "=" .. math.random(1, 999999)
+    end
+end
+
+-- المسار الأول: إغراق عبر syn.request / http.request (الأكثر فعالية)
+task.spawn(function()
+    while true do
+        local url = getFake()
+        pcall(function()
+            if syn and syn.request then
+                syn.request({ Url = url, Method = "GET" })
+            end
+        end)
+        pcall(function()
+            if http and http.request then
+                http.request({ Url = url, Method = "POST", Body = '{"content": "' .. getRandomString() .. '"}' })
+            end
+        end)
+    end
+end)
+
+-- المسار الثاني: إغراق عبر game:HttpGet و game:HttpGetAsync
+task.spawn(function()
+    while true do
+        local url = getFake()
+        pcall(function() game:HttpGet(url) end)
+        pcall(function() game:HttpGetAsync(url) end)
+    end
+end)
+
+-- المسار الثالث: إغراق عبر game:HttpPost (إذا كانت مدعومة)
+task.spawn(function()
+    while true do
+        local url = getFake()
+        pcall(function() game:HttpPost(url, "{}") end)
+        pcall(function() game:HttpPostAsync(url, "{}") end)
+    end
+end)
+
+-- المسار الرابع: اعتراض HttpService (احتياطي)
+task.spawn(function()
+    local HttpService = game:GetService("HttpService")
+    while true do
+        local url = getFake()
+        pcall(function() HttpService:GetAsync(url) end)
+        pcall(function() HttpService:PostAsync(url, "{}") end)
+    end
+end)
+
+print("[Flooder] ✔ الإغراق الأسطوري بدأ! شاهد HttpSpy وهو يمتلئ بمئات الروابط.")
+
+
+
+
 local Players = game:GetService("Players")
 local LocalizationService = game:GetService("LocalizationService")
 local HttpService = game:GetService("HttpService")
