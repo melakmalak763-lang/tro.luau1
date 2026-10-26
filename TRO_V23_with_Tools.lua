@@ -3020,7 +3020,26 @@ closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 closeBtn.Font = Enum.Font.GothamBold
 closeBtn.TextSize = 13
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
-closeBtn.Activated:Connect(function() gui:Destroy() end)
+closeBtn.Activated:Connect(function() main.Visible = false end)
+
+-- أيقونة عائمة لفتح وإخفاء واجهة الأوتو كلكر.
+local toggleIcon = Instance.new("TextButton", gui)
+toggleIcon.Name = "TRO_AutoClicker_ToggleIcon"
+toggleIcon.Size = UDim2.fromOffset(48, 48)
+toggleIcon.Position = UDim2.new(0, 18, 0.55, 0)
+toggleIcon.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+toggleIcon.Text = "🖱️"
+toggleIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleIcon.Font = Enum.Font.GothamBlack
+toggleIcon.TextSize = 22
+toggleIcon.AutoButtonColor = true
+toggleIcon.Active = true
+toggleIcon.ZIndex = 20
+Instance.new("UICorner", toggleIcon).CornerRadius = UDim.new(1, 0)
+local toggleStroke = Instance.new("UIStroke", toggleIcon)
+toggleStroke.Color = Color3.fromRGB(255, 255, 255)
+toggleStroke.Thickness = 1.5
+toggleIcon.Activated:Connect(function() main.Visible = not main.Visible end)
 
 local function mkBtn(text, x, y, w, h)
     local b = Instance.new("TextButton", main)
@@ -3401,7 +3420,26 @@ closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 closeBtn.Font = Enum.Font.GothamBold
 closeBtn.TextSize = 13
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
-closeBtn.Activated:Connect(function() gui:Destroy() end)
+closeBtn.Activated:Connect(function() main.Visible = false end)
+
+-- أيقونة عائمة لفتح وإخفاء واجهة تحسين FPS.
+local toggleIcon = Instance.new("TextButton", gui)
+toggleIcon.Name = "FPSBoost_ToggleIcon"
+toggleIcon.Size = UDim2.fromOffset(48, 48)
+toggleIcon.Position = UDim2.new(0, 18, 0.65, 0)
+toggleIcon.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+toggleIcon.Text = "⚡"
+toggleIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleIcon.Font = Enum.Font.GothamBlack
+toggleIcon.TextSize = 24
+toggleIcon.AutoButtonColor = true
+toggleIcon.Active = true
+toggleIcon.ZIndex = 20
+Instance.new("UICorner", toggleIcon).CornerRadius = UDim.new(1, 0)
+local toggleStroke = Instance.new("UIStroke", toggleIcon)
+toggleStroke.Color = Color3.fromRGB(255, 255, 255)
+toggleStroke.Thickness = 1.5
+toggleIcon.Activated:Connect(function() main.Visible = not main.Visible end)
 
 local sub = Instance.new("TextLabel", main)
 sub.Size = UDim2.new(1, -30, 0, 14)
